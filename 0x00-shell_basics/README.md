@@ -1,1 +1,2 @@
-pwd - print working directory
+pwd - print working director
+ls  - list sub directoriesy
