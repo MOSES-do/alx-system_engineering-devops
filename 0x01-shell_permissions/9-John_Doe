@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "$(chmod 753 hello; ls -l hello)"
+echo "$(chmod 753 hello | ls -l hello)"
