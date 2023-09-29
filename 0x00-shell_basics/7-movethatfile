@@ -1,3 +1,3 @@
 #!/bin/bash
-echo "$(mv betty /tmp/my_first_directory)"
+echo "$(ls /tmp/my_first_directory)"
 
