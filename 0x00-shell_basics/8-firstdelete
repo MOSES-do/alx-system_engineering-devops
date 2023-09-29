@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "$(cat /tmp/my_first_directory/betty)"
+echo "$(rm /tmp/my_first_directory/betty)"
