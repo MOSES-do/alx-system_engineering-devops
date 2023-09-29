@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "$(chmod 774 hello)"
+echo "$(chmod 754 hello)"
