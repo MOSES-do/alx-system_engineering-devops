@@ -1,0 +1,2 @@
+#!/bin/false
+cat { /etc/passwd && /etc/hosts }
