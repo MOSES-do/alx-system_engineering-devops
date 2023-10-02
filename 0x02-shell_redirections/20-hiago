@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Chicago" | tr -d 'Cc'#!/bin/bash
+echo "Chicago" | tr -d 'Cc'#!/bin/bash
+echo "Chicago" | tr -d 'Cc'
