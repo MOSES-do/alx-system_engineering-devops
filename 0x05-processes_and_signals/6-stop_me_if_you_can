@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#Another way to kill a program other than using kill
+pkill -TERM "./4-to_infinity_and_beyond" -f
