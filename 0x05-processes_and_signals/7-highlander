@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#An infinite loop that adds a sleep timer of 2 between each iteration of the loop
+#Trap - defines action to be taken when shell receives certain signals or exits
+i="0"
+trap 'echo "I am invincible!!!"' 15
+while [ $i -le 2 ]
+do
+    echo "To infinity and beyond"
+    sleep 2
+done

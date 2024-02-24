@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#Another way to kill a program other than using kill
+pkill -TERM "./7-highlander" -f
