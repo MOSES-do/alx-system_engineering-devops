@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#Another way to kill a program other than using kill
+#Forcing a trapped process to be terminated using SIGKILL (9)
+pid=$(pgrep "bash ./7-highlander" -f)
+if [ -n "$pid" ]
+then
+    kill -9 "$pid"
+fi
