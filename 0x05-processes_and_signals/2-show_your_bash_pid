@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#Display lines containing bash in Process Status (ps)
+ps -auxf | grep "bash"
