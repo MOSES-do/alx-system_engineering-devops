@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#Kill infinite loop program 
+pid=$(pgrep "bash ./4-to_infinity_and_beyond" -f)
+if [ -n "$pid" ]
+then
+    kill -TERM "$pid"
+fi
