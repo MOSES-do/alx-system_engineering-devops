@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+#Create and interact with process based on signals recieved
+#I hate the kill cmd!!! When receiving the SIGTERM signal.
+#Y U no love me!!! When receiving a SIGINT signal
+pid=$(pgrep "bash ./100-process_and_pid_file" -f)
+myFile="/var/run/myscript.pid"
+
+if [ ! -f "$myFile" ]; then
+    touch "$myFile"
+fi
+
+trap 'echo "I hate the kill command"' 15
+trap 'echo "Y U no love me?!"' 2
+trap 'deleteFile' 3
+
+deleteFile() {
+    rm $myFile
+    if [ -n "$pid" ]
+    then
+        kill -9 "$pid"
+    fi
+}
+
+echo $$ > "$myFile" 
+
+while true
+do
+    echo "Infinity and beyond"
+done
