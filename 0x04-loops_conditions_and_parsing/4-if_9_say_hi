@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #Script that prints "Best School" with an added line at index 9
-i="0"
+i="1"
 while [ "$i" -le 10 ]
 do
     echo "Best School"
