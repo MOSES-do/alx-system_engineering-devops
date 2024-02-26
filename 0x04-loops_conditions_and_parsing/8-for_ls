@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 #print working directory in list format showing only the part of file name after the dash
-find . | cut -d '-' -f 2 > list
+find . -type f -not -path '*/.*' | cut -d '-' -f 2 > list
 for i in list
 do
 	cat "$i"
 done
+
+#remove temporary file 'list' at the end of loop
+rm list
