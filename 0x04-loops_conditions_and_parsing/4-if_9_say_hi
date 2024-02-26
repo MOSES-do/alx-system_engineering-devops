@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#Script that prints "Best School" with an added line at index 9
+i="0"
+while [ "$i" -le 10 ]
+do
+    echo "Best School"
+    if [ "$i" -eq 9 ]; then
+        echo "Hi"; fi
+    i=$((i+1))
+done
