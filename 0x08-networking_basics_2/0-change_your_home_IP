@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#script that edits the /etc/hosts
+
+sudo touch ~/temp_file
+sudo cp /etc/hosts ~/temp_file
+sed -i 's/^127.0.0.1/127.0.0.2/' ~/temp_file
+echo -e "8.8.8.8\tfacebook.com" >> ~/temp_file
+sudo cp -f ~/temp_file /etc/hosts
+
+#file="/etc/hosts"
+
+#if [ ! -f "$file" ]; then
+#	echo "Error: File '$file' not found."
+#	exit 1;
+#fi
+
+#pattern="127.0.0.1"
+#line_number=0
+#while IFS= read -r line; do
+#	((line_number++))
+#	if [[ "$line" == *"$pattern"* ]]; then
+#		echo -e "127.0.0.2\tlocalhost"
+#	else
+#		echo "$line"
+#	fi
+#done < <(sudo cat "$file") > "$file.tmp" && sudo cp "$file.tmp" "$file"
+
+#echo -e "8.8.8.8\tfacebook.com" >> "$file"

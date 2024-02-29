@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#search and print IPV4 addresses
+
+
+ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | while read -r ip; do
+    echo "$ip"
+done
+
+#interfaces=$(ls /sys/class/net)
+
+# Loop through each interface
+#for interface in $interfaces; do
+#    if [ "$interface" != "lo" ]; then
+        # Get IPv4 address
+#        ipv4_address=$(cat /sys/class/net/$interface/address)
+        # regexp to match IPv4 address
+#        if [[ $ipv4_address =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then
+#            echo "$ipv4_address"
+#        fi
+#    fi
+#done
