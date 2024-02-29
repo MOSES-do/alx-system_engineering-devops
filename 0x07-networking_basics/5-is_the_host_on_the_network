@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#ping - check if an address is availabkle on the network
+
+arg=$1
+
+if [ $# -ne 1 ]
+then
+    echo "Usage: 5-is_the_host_on_the_network {IP_ADDRESS}"
+    exit 1
+fi
+ping -c 5 "$arg"
