@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 #script that listens on port 98 on localhost
 
-PORT=98
-nc -l -p $PORT
+#PORT=98
+#nc -l -p $PORT
+regex='nc -l (.){0,12}98'
+str="nc -l 98"
 
+if [[ $str =~ $regex ]]; then
+    host_port=${BASH_REMATCH[0]}
+    $host_port
+fi
