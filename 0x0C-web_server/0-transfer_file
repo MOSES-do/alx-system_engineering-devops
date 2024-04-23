@@ -1,4 +1,4 @@
-#!/usr/bin/env baash
+#!/usr/bin/env bash
 # check server directory for existing files
 # ssh username@100.13.123.12 -i ~/.ssh/sylvian 'ls ~/'
 
@@ -12,4 +12,4 @@ IP="$2"
 USERNAME="$3"
 path_to_ssh_key="$4"
 
-scp -o StrictHostKeyChecking=no -i "$path_to_ssh_key" "$PATH_TO_FILE" "USERNAME@IP:~/"
+scp -o StrictHostKeyChecking=no -i "$path_to_ssh_key" "$PATH_TO_FILE" "$USERNAME@$IP:~/"
