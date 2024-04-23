@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+new_content="Hello World!"
+
+html_file="/var/www/html/index.nginx-debian.html"
+
+echo "$new_content" > "$html_file"
+
 sudo apt update
 
 sudo apt install nginx -y
