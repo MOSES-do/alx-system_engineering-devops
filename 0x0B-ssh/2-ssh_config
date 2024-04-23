@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#Adding SSH Keys to an SSH Agent to avoid typing passphrase
+eval $(ssh-agent)
+ssh-add
+
+#Updating config to refuse password authentication
+sudo touch ~/temp_file
+sudo cp /etc/ssh/sshd_config ~/temp_file
+sed -i 's/^#PasswordAuthentication yes/PasswordAuthentication no/' ~/temp_file
+sudo cp -f ~/temp_file /etc/ssh/sshd_config
