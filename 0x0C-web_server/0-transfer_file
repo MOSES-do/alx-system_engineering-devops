@@ -1,0 +1,15 @@
+#!/usr/bin/env baash
+# check server directory for existing files
+# ssh username@100.13.123.12 -i ~/.ssh/sylvian 'ls ~/'
+
+if [ "$#" -lt 4 ]; then
+  echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME"
+  exit 1
+fi
+
+PATH_TO_FILE="$1"
+IP="$2"
+USERNAME="$3"
+path_to_ssh_key="$4"
+
+scp -o StrictHostKeyChecking=no -i "$path_to_ssh_key" "$PATH_TO_FILE" "USERNAME@IP:~/"
