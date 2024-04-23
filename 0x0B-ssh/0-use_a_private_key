@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#ssh coonect to my server using private key `~/.ssh/school/` user 'ubuntu'
+ssh -i "~/.ssh/school" ubuntu@100.25.143.79
