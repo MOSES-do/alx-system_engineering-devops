@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
 
-new_content="Hello World!"
+#new_content="Hello World!"
 
-html_file="/var/www/html/index.nginx-debian.html"
+#html_file="/var/www/html/index.nginx-debian.html"
 
-echo "$new_content" > "$html_file"
+#echo "$new_content" > "$html_file"
 
 sudo apt update
 
-sudo apt install nginx -y
+sudo apt-get -y install nginx
 
-sudo sed -i 's/80/80/g' /etc/nginx/sites-enabled/default
+sudo ss -tuln | grep ':80'
+#sudo sed -i 's/80/80/g' /etc/nginx/sites-enabled/default
+
+echo "Hello World!" > sudo tee /var/www/html/index.html
 
 sudo service nginx restart
