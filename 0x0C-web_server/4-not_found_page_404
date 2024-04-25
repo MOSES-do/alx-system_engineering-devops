@@ -10,9 +10,9 @@ output_string="Ceci n'est pas une page"
 echo "Ceci n'est pas une page" > /var/www/html/404.html
 
 # Check if the custom error page exists
-if [ ! -f "$custom_error_page" ]; then
-    exit 1
-fi
+#if [ ! -f "$custom_error_page" ]; then
+#    exit 1
+#fi
 
 # Add the error_page directive within the server block
 sudo sed -i '/^server {/a \\n\    error_page 404 \/404.html;' "$nginx_conf"
