@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# In this first debugging project, you will need to get Apache 
+
+sudo systemctl stop apache2
+sudo fuser -k -n tcp 8080
+docker run -p 8080:80 holbertonschool/265-0
+#docker exc 'echo "Hello Holberton" > /var/www/html/index.html'
+sudo systemctl restart apache2
