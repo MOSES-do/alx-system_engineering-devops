@@ -18,11 +18,6 @@ cat <<EOF | sudo tee "$nginx_root/404.html" > /dev/null
 </html>
 EOF
 
-# Check if the custom error page exists
-if [ ! -f "$custom_error_page" ]; then
-    exit 1
-fi
-
 # Add the error_page directive within the server block
 sudo sed -i '/^server {/a \\n\    error_page 404 \/404.html;' "$nginx_conf"
 
