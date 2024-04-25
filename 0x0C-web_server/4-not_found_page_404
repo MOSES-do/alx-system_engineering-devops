@@ -6,12 +6,11 @@ nginx_root="/var/www/html"
 custom_error_page="/var/www/html/404.html"
 output_string="Ceci n'est pas une page"
 
-# Custom error page HTML file with the desired message
-echo -e "Ceci n'est pas une page \n" > /var/www/html/404.html
 
 # Check if the custom error page exists
 if [ ! -f "$custom_error_page" ]; then
-    exit 1
+  # Custom error page HTML file with the desired message
+  echo -e "Ceci n'est pas une page \n" > /var/www/html/404.html
 fi
 
 # Add the error_page directive within the server block
