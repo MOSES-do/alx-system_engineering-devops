@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Define the path to the Nginx configuration file
+nginx_conf="/etc/nginx/sites-enabled/default"
+nginx_root="/var/www/html"
+custom_error_page="/var/www/html/404.html"
+
+# Custom error page HTML file with the desired message
+cat <<EOF | sudo tee "$nginx_root/404.html" > /dev/null
+<!DOCTYPE html>
+<html>
+<head>
+    <title>404 Not Found</title>
+</head>
+<body>
+    <p>Ceci n'est pas une page</p>
+</body>
+</html>
+EOF
+
+# Check if the custom error page exists
+if [ ! -f "$custom_error_page" ]; then
+    exit 1
+fi
+
+# Add the error_page directive within the server block
+sudo sed -i '/^server {/a \\n\    error_page 404 \/404.html;' "$nginx_conf"
+
+sudo systemctl reload nginx
