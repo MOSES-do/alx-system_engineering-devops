@@ -7,7 +7,7 @@ custom_error_page="/var/www/html/404.html"
 output_string="Ceci n'est pas une page"
 
 # Custom error page HTML file with the desired message
-echo "Ceci n'est pas une page" > /var/www/html/404.html
+echo -e "Ceci n'est pas une page\n" > /var/www/html/404.html
 
 # Check if the custom error page exists
 #if [ ! -f "$custom_error_page" ]; then
