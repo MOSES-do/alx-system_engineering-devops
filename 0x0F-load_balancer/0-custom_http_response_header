@@ -1,0 +1,40 @@
+#!/ust/bin/env bash
+#Make web-02 twin of web-01 & configure web-01 HTTP response header.
+
+sudo apt-get update
+
+sudo apt-get -y install nginx
+
+service nginx start
+
+# First, assign ownership of html to user running script
+# so they have full control over web server files.
+chown -R "$USER:$USER" /var/www/html
+
+# Second, set permissions of /var/www & its files to rwx for user,
+# r-x for group and others.
+chmod -R 755 /var/www
+
+echo "Hello World!" > /var/www/html/index.html
+
+# Create replacement string
+replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/MOSES-do permanent;"
+
+# Use sed to do inplace editing of /etc/nginx/sites-enabled/default
+sudo sed -i "s#server_name _;#$replacement#" /etc/nginx/sites-enabled/default
+
+# Create the 404.html error page
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+
+# Create replacement string
+ereplacement="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\troot \/var/www/html;\n\t\tinternal;\n\t}"
+
+# Use sed to inplace edit /etc/nginx/sites-enabled/default
+sudo sed -i "s#listen 80 default_server;#$ereplacement#" /etc/nginx/sites-enabled/default
+
+# Use sed to inplace edit HTTP response header
+sudo sed -i "/server_name _;/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default
+
+sudo nginx -t
+
+service nginx restart
