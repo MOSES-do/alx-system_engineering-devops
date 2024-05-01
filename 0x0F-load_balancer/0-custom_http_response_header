@@ -1,40 +1,36 @@
-#!/ust/bin/env bash
-#Make web-02 twin of web-01 & configure web-01 HTTP response header.
+#!/usr/bin/env bash
+# install nginx on web-01
 
-sudo apt-get update
+nginx_conf="/etc/nginx/sites-enabled/default"
 
+
+sudo apt update
 sudo apt-get -y install nginx
+sudo sed -i 's/80/80/g' /etc/nginx/sites-enabled/default
 
-service nginx start
-
-# First, assign ownership of html to user running script
-# so they have full control over web server files.
-chown -R "$USER:$USER" /var/www/html
-
-# Second, set permissions of /var/www & its files to rwx for user,
-# r-x for group and others.
-chmod -R 755 /var/www
-
+sudo chmod -R 755 /var/www
+sudo chown -R $USER:$USER /var/www/html
 echo "Hello World!" > /var/www/html/index.html
 
-# Create replacement string
-replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/MOSES-do permanent;"
 
-# Use sed to do inplace editing of /etc/nginx/sites-enabled/default
-sudo sed -i "s#server_name _;#$replacement#" /etc/nginx/sites-enabled/default
+# Define the redirection rule
+redirect_path="/redirect_me/"
+uri="https://www.github.com/MOSES-do"
+sudo sed -i "48i \ \ \ \ location $redirect_path {\n \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return 301 $uri;\n \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }" $nginx_conf
 
-# Create the 404.html error page
-echo "Ceci n'est pas une page" > /var/www/html/404.html
 
-# Create replacement string
-ereplacement="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\troot \/var/www/html;\n\t\tinternal;\n\t}"
+# Custom error page HTML file with the desired message
+echo -e "Ceci n'est pas une page \n" > /var/www/html/404.html
+# Add the error_page directive within the server block
+sudo sed -i '/^server {/a \\n\    error_page 404 \/404.html;' "$nginx_conf"
 
-# Use sed to inplace edit /etc/nginx/sites-enabled/default
-sudo sed -i "s#listen 80 default_server;#$ereplacement#" /etc/nginx/sites-enabled/default
 
-# Use sed to inplace edit HTTP response header
-sudo sed -i "/server_name _;/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default
+#Add custom header to config using sed inplace
+sudo sed -i "/server_name _;/a add_header X-Served-By "$HOSTNAME";" /etc/nginx/sites-enabled/default
 
+
+#Test configuration fo possible errors
 sudo nginx -t
 
-service nginx restart
+#Restart nginx
+sudo service nginx restart
