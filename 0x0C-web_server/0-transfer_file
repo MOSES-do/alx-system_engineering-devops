@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # check server directory for existing files
-# ssh username@100.13.123.12 -i ~/.ssh/sylvian 'ls ~/'
+#~/.ssh/private_key is used to authenticate user on the server
+#by checking the pblic key against the private key on the 
+#local computer where the key was generated
+# ssh username@100.13.123.12 -i ~/.ssh/private_key 'ls ~/'
 
 if [ "$#" -lt 4 ]; then
   echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME"
