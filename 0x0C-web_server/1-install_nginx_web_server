@@ -5,6 +5,11 @@ sudo apt update
 sudo apt-get -y install nginx
 sudo sed -i 's/80/80/g' /etc/nginx/sites-enabled/default
 
+sudo chmod -R 755 /var/www
+sudo chown -R "$USER:$USER" /var/www/html
 echo "Hello World!" > /var/www/html/index.html
+
+#add custom header to config
+sudo sed -i "/server_name _;/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default
 
 sudo service nginx restart
