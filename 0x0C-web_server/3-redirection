@@ -1,10 +1,19 @@
 #!/usr/bin/env bash
-#allows nginx on the firewall
+#configures Nginx server so /redirect_me redirects to another page
+# with a permanent redirect.
 
-#sudo ufw allow 'NGINX HTTPS'
+
+#allows nginx on the firewall
+# First, allow connections through SSH on port 22.
+ufw allow OpenSSH
+
+# Second, allow connections through http on its port 80.
+ufw allow 'Nginx HTTP'
+
+
 #change ownership to current user
-#sudo chown -R "$USER:$USER" /var/www/html
-#sudo chmod -R 755 /var/www/
+sudo chown -R "$USER:$USER" /var/www/html
+sudo chmod -R 755 /var/www/
 nginx_conf="/etc/nginx/sites-enabled/default"
 
 # Define the redirection rule
@@ -13,7 +22,9 @@ uri="https://www.youtube.com/watch?v=QH2-TGUlwu4"
 
 sudo sed -i "48i \ \ \ \ location $redirect_path {\n \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return 301 $uri;\n \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }" $nginx_conf
 
+sudo nginx -t
 #backup the default nginx page
 #cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debain.bak
 
 sudo service nginx restart
+sudo systemctl reload nginx
