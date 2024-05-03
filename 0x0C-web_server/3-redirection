@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-#configures Nginx server so /redirect_me redirects to another page
-# with a permanent redirect.
+#configures Nginx server so /redirect_me redirects to another page with a permanent redirect.
 
 # Update the server.
-apt-get update
+sudo apt-get update
 
 # Install Nginx and agree to all prompts.
-apt-get -y install nginx
+sudo apt-get -y install nginx
 
 # start nginx
 sudo service nginx start
