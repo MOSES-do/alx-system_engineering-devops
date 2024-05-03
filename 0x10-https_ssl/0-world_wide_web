@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# configure your domain zone so that the subdomain www points to your load-balancer IP (lb-01)
+ 
+web2="web-02"
+web1="web-01"
+lb="lb-01"
+wwb="www"
+
+dig="$(dig lb-01.$1 | grep -A1 'ANSWER SECTION:' | awk '{printf "%s", $4}')"
+
+get_ip() {
+	local dom="$1"
+	local dresult
+	dresult=$(dig +short "$dom")
+	echo "$dresult"
+}
+
+if [ -z "$1" ]; then
+	echo "no argument"
+elif [ "$#" -eq 1 ]; then
+	echo "The subdomain www is a $dig record and points to $(get_ip lb-01.$1)"
+	echo "The subdomain lb-01 is a $dig record and points to $(get_ip lb-01.$1)"
+	echo "The subdomain web-01 is a $dig record and points to $(get_ip web-01.$1)"
+	echo "The subdomain web-02 is a $dig record and points to $(get_ip web-02.$1)"
+fi
+
+if [ "$#" -eq 2 ] && [ "$2" = "$web2" ]; then
+	echo "The subdomain web-02 is a $dig record and points to $(get_ip web-02.$1)"
+elif [ "$#" -eq 2 ] && [ "$2" = "$wwb" ]; then
+	echo "The subdomain www is a $dig record and points to $(get_ip www.$1)"
+elif [ "$#" -eq 2 ] && [ "$2" = "$web1" ]; then
+	echo "The subdomain web-01 is a $dig record and points to $(get_ip web-01.$1)"
+elif [ "$#" -eq 2 ] && [ "$2" = "$lb" ]; then
+	echo "The subdomain lb-01 is a $dig record and points to $(get_ip lb-01.$1)"
+fi
