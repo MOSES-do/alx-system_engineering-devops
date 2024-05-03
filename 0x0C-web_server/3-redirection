@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
-#configures Nginx server so /redirect_me redirects to another page
-# with a permanent redirect.
+#configures Nginx server so /redirect_me redirects to another page with a permanent redirect.
 
+# Update the server.
+sudo apt-get update
+
+# Install Nginx and agree to all prompts.
+sudo apt-get -y install nginx
+
+# start nginx
+sudo service nginx start
 
 #allows nginx on the firewall
 # First, allow connections through SSH on port 22.
