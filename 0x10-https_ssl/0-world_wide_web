@@ -3,7 +3,7 @@
 
 # and other sub-domains
 
-
+dom=$1
 get_subdom_info() {
 	if [ -z "$2" ] 
 	then
@@ -13,9 +13,13 @@ get_subdom_info() {
 	fi
 
 	for subdom in "${list_subdom[@]}"; do
-		record_type=$(dig "$subdom.$1" | awk '/ANSWER SECTION:/ {getline; print $4}')
-		dest=$(dig "$subdom.$1" | awk '/ANSWER SECTION:/ {getline; print $5}')
-		echo "The domain is $subdom is a $record_type record and points to $dest"
+		#dig +short returns ip address of domain
+		output=$(dig +short "$subdom.$dom")
+		if [ -n "$output" ]; then
+			record_type=$(dig "$subdom.$dom" | awk '/ANSWER SECTION:/ {getline; print $4}')
+			dest="$output"
+			echo "The domain is $subdom is a $record_type record and points to $dest"
+		fi
 	done
 }
 
