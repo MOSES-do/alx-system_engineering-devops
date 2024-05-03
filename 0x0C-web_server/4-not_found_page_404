@@ -27,6 +27,7 @@ fi
 # Add the error_page directive within the server block
 sudo sed -i '/^server {/a \\n\    error_page 404 \/404.html;' "$nginx_conf"
 
+sudo nginx -t
 
 # If the configuration test is successful, reload Nginx to apply the changes
 sudo service nginx restart
