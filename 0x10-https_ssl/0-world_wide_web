@@ -3,18 +3,20 @@
 
 # and other sub-domains
 
-if [ -z "$2" ] 
-then
-	list_subdom=("www" "lb-01" "web-01" "web-02")
-else
-	list_subdom=("$2")
-fi
 
-for subdom in "${list_subdom[@]}"; do
-	record_type=$(dig "$subdom.$1" | awk '/ANSWER SECTION:/ {getline; print $4}')
-	dest=$(dig "$subdom.$1" | awk '/ANSWER SECTION:/ {getline; print $5}')
-	echo "The domain is $subdom is a $record_type record and points to $dest"
-done
-	
+get_subdom_info() {
+	if [ -z "$2" ] 
+	then
+		list_subdom=("www" "lb-01" "web-01" "web-02")
+	else
+		list_subdom=("$2")
+	fi
 
- 
+	for subdom in "${list_subdom[@]}"; do
+		record_type=$(dig "$subdom.$1" | awk '/ANSWER SECTION:/ {getline; print $4}')
+		dest=$(dig "$subdom.$1" | awk '/ANSWER SECTION:/ {getline; print $5}')
+		echo "The domain is $subdom is a $record_type record and points to $dest"
+	done
+}
+
+get_subdom_info "$1" "$2"	
