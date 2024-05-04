@@ -1,27 +1,25 @@
 #!/usr/bin/env bash
-# configure your domain zone so that the subdomain www points to your load-balancer IP (lb-01)
+# configure your domain so that the subdomain www points to your load-balancer IP (lb-01)
 
 # and other sub-domains
 
 dom=$1
-get_subdom_info() {
-	if [ -z "$2" ] 
-	then
-		list_subdom=("www" "lb-01" "web-01" "web-02")
-	else
-		list_subdom=("$2")
-	fi
+if [ -z "$2" ] 
+then
+	list_subdom=("www" "lb-01" "web-01" "web-02")
+else
+	list_subdom=("$2")
+fi
 
-	for subdom in "${list_subdom[@]}"; do
-		#dig +short returns ip address of domain
-		output=$(dig +short "$subdom.$dom")
-		#echo "$output"
-		#if [ -n "$output" ]; then
-		record_type=$(dig "$subdom.$dom" | awk '/ANSWER SECTION:/ {getline; print $4}')
-		dest="$output"
-		echo "The domain is $subdom is a $record_type record and points to $dest"
-		#fi
-	done
-}
+for subdom in "${list_subdom[@]}"; do
+	#dig +short returns ip address of domain
+	output=$(dig +short "$subdom.$dom")
+	#if [ -n "$output" ]; then
+	record_type=$(dig "$subdom.$dom" | awk '/ANSWER SECTION:/ {getline; print $4}')
+	dest="$output"
+	echo "The subdomain $subdom is a $record_type record and points to $dest"
+	#fi
+done
 
-get_subdom_info "$1" "$2"	
+
+
