@@ -15,11 +15,12 @@ get_subdom_info() {
 	for subdom in "${list_subdom[@]}"; do
 		#dig +short returns ip address of domain
 		output=$(dig +short "$subdom.$dom")
-		if [ -n "$output" ]; then
-			record_type=$(dig "$subdom.$dom" | awk '/ANSWER SECTION:/ {getline; print $4}')
-			dest="$output"
-			echo "The domain is $subdom is a $record_type record and points to $dest"
-		fi
+		#echo "$output"
+		#if [ -n "$output" ]; then
+		record_type=$(dig "$subdom.$dom" | awk '/ANSWER SECTION:/ {getline; print $4}')
+		dest="$output"
+		echo "The domain is $subdom is a $record_type record and points to $dest"
+		#fi
 	done
 }
 
