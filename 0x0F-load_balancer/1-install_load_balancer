@@ -13,10 +13,11 @@ addition=\
 frontend external_end
   bind *:80
         mode http
-        default_backend airbnb_clone_backend
+        default_backend server_end
 
-backend airbnb_clone_backend
+backend server_end
   balance roundrobin
+	option http-server-close
         server 530721-web-01 100.25.143.79 check
   server 530721-web-02 100.25.222.39 check
 "
@@ -45,6 +46,7 @@ echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
 
 # Test configuration
 haproxy -c -f /etc/haproxy/haproxy.cfg
+
 
 # Restart haproxy
 sudo service haproxy restart
