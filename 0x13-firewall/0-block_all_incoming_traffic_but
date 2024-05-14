@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# block all incoming traffic but
+
+if ! [ -x "$(command -v ufw)" ]; then
+        sudo apt-get update
+        sudo apt-get install -y ufw
+fi
+
+
+# deny incoming traffic on all ports by default
+sudo ufw default deny incoming
+
+# allow incoming traffic on port 80 (HTTP)
+sudo ufw allow 80/tcp
+
+# allow incoming traffic on port 443 (HTTPS)
+sudo ufw allow 443/tcp
+
+# allow incoming traffic on port 22 (SSH)
+sudo ufw allow 22/tcp
+
+# enable UFW to apply the rules
+sudo ufw enable
+
+sudo ufw reload

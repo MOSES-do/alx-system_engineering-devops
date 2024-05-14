@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#port forwarding 8080 to port 80 on internal server ip address
+
+net="#net.ipv4.ip_forward"
+sudo sed -i "s/$net/net.ipv4.ip_forward/" /etc/sysctl.conf
+sudo sysctl -p
+sudo service ufw restart
+
+sudo sed -i '1i *nat\n:PREROUTING ACCEPT [0:0]\n-A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80\nCOMMIT' /etc/ufw/before.rules
+sudo ufw reload
