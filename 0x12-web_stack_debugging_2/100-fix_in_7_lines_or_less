@@ -4,4 +4,3 @@
 if id "$1" &>/dev/null; then
 	sudo -u "$1" whoami
 fi
-
