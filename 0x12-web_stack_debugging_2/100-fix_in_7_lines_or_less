@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 # check if user passed is in list of created users
 
-sudo -u "$1" whoami
+if id "$1" &>/dev/null; then
+	sudo -u "$1" whoami
+fi
+
