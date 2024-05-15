@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # script to configure the container to make nginx "user" and port to listen on 8080
 
-#sudo adduser nginx
+sudo adduser nginx
 sudo sed -i "s/listen 80 default_server;/listen 8080 default_server;/" /etc/nginx/sites-available/default
 sudo sed -i "s/listen [::]:80 default_server;/listen [::]:8080 default_server;/" /etc/nginx/sites-available/default
 sudo sed -i "s/user www-data;/user nginx;/" /etc/nginx/nginx.conf
+sudo rm -r "/etc/nginx/sites-enabled/default"
 sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 sudo service nginx restart
