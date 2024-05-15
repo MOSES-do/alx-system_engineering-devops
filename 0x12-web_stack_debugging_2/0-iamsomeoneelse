@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# user privileges and its consequences
+
+get_users()
+{
+        cut -d: -f1 /etc/passwd
+}
+
+users=$(get_users)
+# empty array to pass each user from get_users() into
+c_users=()
+current_user=$1
+
+# read each line of the result into the array
+while IFS= read -r line; do
+        c_users+=("$line")
+done <<< "$users"
+
+user_exists=0
+if [ $# -ne 1 ]; then
+        echo "USAGE: ./prog_name <username>"
+        exit 1
+else
+        for user in "${c_users[@]}"; do
+                if [ "$user" == "$current_user" ]; then
+                        echo "$current_user"
+                        user_exists=1
+                        break
+                fi
+        done
+fi
+
+if [ "$user_exists" -eq 0 ]; then
+        echo "Unknown user $current_user"
+        exit 1
+fi
+
+#single line is equivalent to the above
+#It checks for the existence of a user
+#sudo -u "$1" whoami
