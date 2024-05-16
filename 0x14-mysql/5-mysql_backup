@@ -10,7 +10,7 @@ dump_file="backup.sql"
 
 timestamp=$(date +"%d-%m-%Y")
 archive_file="$timestamp.tar.gz"
-sudo mysqldump -u root -p$1 --all-databases > backup.sql
+sudo mysqldump -u root -p$1 --all-databases > $dump_file
 if [ $? -ne 0 ]; then
 	echo "my sql dump failed"
 	exit 1
