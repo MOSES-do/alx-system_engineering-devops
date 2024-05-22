@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """REST API TO RETURN USER INFORMATION"""
+import json
 import requests
 import urllib.request
-import json
 import sys
 
 
@@ -15,27 +15,27 @@ if __name__ == "__main__":
         f"{sys.argv[1]}")
 
     tasks = []
-    tasks_title = []
-    completed_tasks = 0
-    emp_name = ""
+    TASKS_TITLE = []
+    NUMBER_OF_DONE_TASKS = 0
+    EMPLOYEE_NAME = ""
 
     with urllib.request.urlopen(emp_details) as res:
         emp = json.loads(res.read())
-        emp_name = emp.get("name")
+        EMPLOYEE_NAME = emp.get("name")
 
     todos = requests.get(emp_todos).json()
     for item in todos:
         done_task = item.get("completed")
         if done_task is True:
-            completed_tasks += 1
-            tasks_title.append(item.get("title"))
+            NUMBER_OF_DONE_TASKS += 1
+            TASKS_TITLE.append(item.get("title"))
         for k in item:
             if k == "completed":
                 tasks.append(k)
 
-    len_of_total_tasks = len(tasks)
+    TOTAL_NUMBER_OF_TASKS = len(tasks)
 
     print(
-        f"Employee {emp_name} is done with tasks"
-        f"({completed_tasks}/{len_of_total_tasks}):")
-    [print(f"\t {title}") for title in tasks_title]
+        f"Employee {EMPLOYEE_NAME} is done with tasks"
+        f"({NUMBER_OF_DONE_TASKS}/{TOTAL_NUMBER_OF_TASKS}):")
+    [print(f"\t {title}") for title in TASKS_TITLE]
