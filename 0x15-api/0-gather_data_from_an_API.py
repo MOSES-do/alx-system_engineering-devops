@@ -2,6 +2,8 @@
 """REST API TO RETURN USER INFORMATION"""
 import requests
 import sys
+import json
+import urllib.request
 
 
 if __name__ == "__main__":
@@ -15,10 +17,13 @@ if __name__ == "__main__":
     NUMBER_OF_DONE_TASKS = 0
     EMPLOYEE_NAME = ""
 
+    with urllib.request.urlopen(emp_details) as res:
+        emp = json.loads(res.read())
+        EMPLOYEE_NAME = emp.get("name")
     emp_name = requests.get(emp_details).json()
-    for i in emp_name:
+    """for i in emp_name:
         if i['id'] == int(sys.argv[1]):
-            EMPLOYEE_NAME = i['name']
+            EMPLOYEE_NAME = i['name']"""
     todos = requests.get(emp_todos).json()
     for item in todos:
         done_task = item.get("completed")
