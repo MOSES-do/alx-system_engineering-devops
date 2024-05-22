@@ -1,28 +1,24 @@
 #!/usr/bin/python3
 """REST API TO RETURN USER INFORMATION"""
-import json
 import requests
-import urllib.request
 import sys
 
 
 if __name__ == "__main__":
     emp_todos = (
         f"https://jsonplaceholder.typicode.com/users/"
-        f"{sys.argv[1]}/todos/")
-    emp_details = (
-        f"https://jsonplaceholder.typicode.com/users/"
-        f"{sys.argv[1]}")
+        f"{sys.argv[1]}/todos")
+    emp_details = "https://jsonplaceholder.typicode.com/users"
 
     tasks = []
     TASKS_TITLE = []
     NUMBER_OF_DONE_TASKS = 0
     EMPLOYEE_NAME = ""
 
-    with urllib.request.urlopen(emp_details) as res:
-        emp = json.loads(res.read())
-        EMPLOYEE_NAME = emp.get("name")
-
+    emp_name = requests.get(emp_details).json()
+    for i in emp_name:
+        if i['id'] == int(sys.argv[1]):
+            EMPLOYEE_NAME = i['name']
     todos = requests.get(emp_todos).json()
     for item in todos:
         done_task = item.get("completed")
