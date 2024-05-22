@@ -25,7 +25,7 @@ if __name__ == "__main__":
         """create a list of objects"""
         user_dict.append(user_row)
 
-    with open('USER_ID.csv', 'w') as csvfile:
+    with open('f"{sys.argv}".csv', 'w') as csvfile:
         fieldnames = user_dict[0].keys()
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames,
                                 quoting=csv.QUOTE_ALL)
