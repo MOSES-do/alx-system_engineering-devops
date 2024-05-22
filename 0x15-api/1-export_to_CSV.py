@@ -28,7 +28,6 @@ if __name__ == '__main__':
         csv_row.append(f',"{EMPLOYEE_NAME}"')
         csv_row.append(f',"{value}"')
         csv_row.append(f',"{anoda_value}"')
-        csv_row.append("\n")
 
     file = f'{par}.csv'
     with open(file, 'w') as output_file:
