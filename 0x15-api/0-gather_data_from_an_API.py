@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """REST API TO RETURN USER INFORMATION"""
+import json
 import requests
 import sys
-import json
 import urllib.request
 
 
