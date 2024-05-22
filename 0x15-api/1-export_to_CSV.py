@@ -19,12 +19,12 @@ if __name__ == "__main__":
     todos = requests.get(emp_todos).json()
     for item in todos:
         user_row.append(f'"{USER_ID}"')
-        user_row.append(f'"{EMPLOYEE_NAME}"')
-        user_row.append(f'"{item.get("completed")}"')
-        user_row.append(f'"{item.get("title")}"')
+        user_row.append(f',"{EMPLOYEE_NAME}"')
+        user_row.append(f',"{item.get("completed")}"')
+        user_row.append(f',"{item.get("title")}"')
         user_row.append('\n')
 
-    with open('f"{sys.argv}".csv', 'w') as csvfile:
+    with open(f'{sys.argv[1]}.csv', 'w') as csvfile:
         for row in user_row:
             csvfile.write(str(row))
     
