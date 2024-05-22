@@ -27,4 +27,3 @@ if __name__ == "__main__":
     with open(f'{sys.argv[1]}.csv', 'w') as csvfile:
         for row in user_row:
             csvfile.write(str(row))
-    
