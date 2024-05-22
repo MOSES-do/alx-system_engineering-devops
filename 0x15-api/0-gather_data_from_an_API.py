@@ -10,7 +10,9 @@ if __name__ == "__main__":
     emp_todos = (
         f"https://jsonplaceholder.typicode.com/users/"
         f"{sys.argv[1]}/todos")
-    emp_details = "https://jsonplaceholder.typicode.com/users"
+    emp_details = (
+        f"https://jsonplaceholder.typicode.com/users/"
+        f"{sys.argv[1]}")
 
     tasks = []
     TASKS_TITLE = []
@@ -20,8 +22,8 @@ if __name__ == "__main__":
     with urllib.request.urlopen(emp_details) as res:
         emp = json.loads(res.read())
         EMPLOYEE_NAME = emp.get("name")
-    emp_name = requests.get(emp_details).json()
-    """for i in emp_name:
+    """emp_name = requests.get(emp_details).json()
+    for i in emp_name:
         if i['id'] == int(sys.argv[1]):
             EMPLOYEE_NAME = i['name']"""
     todos = requests.get(emp_todos).json()
