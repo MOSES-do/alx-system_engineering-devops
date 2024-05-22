@@ -10,7 +10,7 @@ if __name__ == "__main__":
         f"{sys.argv[1]}/todos")
     emp_details = "https://jsonplaceholder.typicode.com/users/"
 
-    user_dict = []
+    user_row = []
     emp_name = requests.get(emp_details).json()
     for i in emp_name:
         if i['id'] == int(sys.argv[1]):
@@ -18,18 +18,13 @@ if __name__ == "__main__":
             USER_ID = i['id']
     todos = requests.get(emp_todos).json()
     for item in todos:
-        """create an object of each element in the array"""
-        user_row = (
-            {"id": USER_ID, "uname": EMPLOYEE_NAME,
-                "title": item.get("completed"), "status": item.get("title")})
-        """create a list of objects"""
-        user_dict.append(user_row)
+        user_row.append(f'"{USER_ID}"')
+        user_row.append(f'"{EMPLOYEE_NAME}"')
+        user_row.append(f'"{item.get("completed")}"')
+        user_row.append(f'"{item.get("title")}"')
+        user_row.append('\n')
 
     with open('f"{sys.argv}".csv', 'w') as csvfile:
-        fieldnames = user_dict[0].keys()
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames,
-                                quoting=csv.QUOTE_ALL)
-        """write row headers
-        writer.writeheader()"""
-        """write row values"""
-        writer.writerows(user_dict)
+        for row in user_row:
+            csvfile.write(str(row))
+    
