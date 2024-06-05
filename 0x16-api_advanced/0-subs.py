@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import praw
 """
 Query subscribers of a subreddit.
 """
@@ -8,14 +9,11 @@ import requests
 
 def number_of_subscribers(subreddit):
     """Returns the total number of subscribers on a given subreddit"""
-    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    headers = {"User-Agent": "learn_api by ACE_MOSES"}
-    response = requests.get(url, headers=headers, allow_redirects=False)
-    if response.status_code == 200:
-        data = response.json()
-        subscribers = data['data']['subscribers']
-        return subscribers
-    else:
-        print(response.status_code)
-        print(response.json)
-        return 0
+    user_agent='MY API_V1'
+    reddit = praw.Reddit(
+                        client_id='qp3ut-6a7Yfzaz1gNdNfKQ',
+                        client_secret='9G1mQTBbXaMk85c2nhagiom_3s2XLQ',
+                        user_agent='MY API_V1'
+                    )
+    subreddit = reddit.subreddit(subreddit)
+    return subreddit.subscribers
